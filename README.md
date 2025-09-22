@@ -1,4 +1,4 @@
-# ⚠️ Stampede Early Warning System  
+# ⚠️ Crowd Stampede Early Warning System  
 
 ![Crowd Safety](https://img.shields.io/badge/AI-Crowd%20Safety-blue)  
 ![Hackathon](https://img.shields.io/badge/Project-Hackathon-success)  
