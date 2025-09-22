@@ -30,5 +30,6 @@ This project was built as a **hackathon prototype** to showcase how technology c
 3. **Alerts**  
    - 🔊 **Loudspeakers**: Play calming guidance messages.  
    - 📱 **Mobile Alerts**: Notify event staff & police instantly.  
-   - 💡 **LED Boards**: Flash exit directions for the crowd.  
-DEMO:alert-x-vert.vercel.app
+   - 💡 **LED Boards**: Flash exit directions for the crowd.
+     
+🎮 Hackathon Demo:alert-x-vert.vercel.app
