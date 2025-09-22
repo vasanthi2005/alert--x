@@ -119,7 +119,7 @@ export const CrowdSimulation = ({ isActive, crowdSize, onRiskDetected }: CrowdSi
     };
   }, [isActive, crowdSize, riskLevel, onRiskDetected]);
 
-  // Canvas rendering
+  // Canvas rendering with heat map
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -130,20 +130,61 @@ export const CrowdSimulation = ({ isActive, crowdSize, onRiskDetected }: CrowdSi
     const render = () => {
       ctx.clearRect(0, 0, 800, 300);
 
+      // Draw heat map background
+      const gridSize = 40;
+      for (let x = 0; x < 800; x += gridSize) {
+        for (let y = 0; y < 300; y += gridSize) {
+          let density = 0;
+          people.forEach(person => {
+            const distance = Math.sqrt((person.x - (x + gridSize/2)) ** 2 + (person.y - (y + gridSize/2)) ** 2);
+            if (distance < gridSize) {
+              density += 1 - (distance / gridSize);
+            }
+          });
+          
+          // Heat map coloring
+          const intensity = Math.min(density / 3, 1);
+          if (intensity > 0.1) {
+            const red = Math.floor(255 * intensity);
+            const green = Math.floor(255 * (1 - intensity));
+            ctx.fillStyle = `rgba(${red}, ${green}, 0, ${intensity * 0.3})`;
+            ctx.fillRect(x, y, gridSize, gridSize);
+          }
+        }
+      }
+
       // Draw background zones
-      ctx.fillStyle = 'rgba(20, 30, 50, 0.3)';
+      ctx.fillStyle = 'rgba(20, 30, 50, 0.1)';
       ctx.fillRect(0, 0, 400, 300); // Entry zone
 
-      ctx.fillStyle = 'rgba(34, 197, 94, 0.1)';
+      ctx.fillStyle = 'rgba(34, 197, 94, 0.05)';
       ctx.fillRect(400, 0, 400, 300); // Exit zone
 
       // Draw zone labels
-      ctx.fillStyle = 'rgba(210, 214, 240, 0.7)';
-      ctx.font = '12px sans-serif';
+      ctx.fillStyle = 'rgba(210, 214, 240, 0.8)';
+      ctx.font = '14px sans-serif';
       ctx.fillText('Entry Zone', 20, 25);
       ctx.fillText('Exit Zone', 420, 25);
+      
+      // Add heat map legend
+      ctx.fillText('Heat Map: ', 20, 280);
+      ctx.fillStyle = 'rgba(0, 255, 0, 0.6)';
+      ctx.fillRect(90, 270, 20, 10);
+      ctx.fillStyle = 'rgba(210, 214, 240, 0.8)';
+      ctx.font = '10px sans-serif';
+      ctx.fillText('Low', 115, 278);
+      
+      ctx.fillStyle = 'rgba(255, 255, 0, 0.6)';
+      ctx.fillRect(140, 270, 20, 10);
+      ctx.fillStyle = 'rgba(210, 214, 240, 0.8)';
+      ctx.fillText('Med', 165, 278);
+      
+      ctx.fillStyle = 'rgba(255, 0, 0, 0.6)';
+      ctx.fillRect(190, 270, 20, 10);
+      ctx.fillStyle = 'rgba(210, 214, 240, 0.8)';
+      ctx.fillText('High', 215, 278);
 
-      // Draw people
+      // Draw people with enhanced visualization
       people.forEach(person => {
         const colors = {
           safe: '#22c55e',
@@ -151,15 +192,22 @@ export const CrowdSimulation = ({ isActive, crowdSize, onRiskDetected }: CrowdSi
           danger: '#ef4444'
         };
 
+        // Draw person with glow effect for danger
+        if (person.riskLevel === 'danger') {
+          ctx.shadowColor = colors[person.riskLevel];
+          ctx.shadowBlur = 10;
+        }
+
         ctx.beginPath();
-        ctx.arc(person.x, person.y, person.riskLevel === 'danger' ? 6 : 4, 0, 2 * Math.PI);
+        ctx.arc(person.x, person.y, person.riskLevel === 'danger' ? 7 : 5, 0, 2 * Math.PI);
         ctx.fillStyle = colors[person.riskLevel];
         ctx.fill();
         
         if (person.riskLevel === 'danger') {
           ctx.strokeStyle = colors[person.riskLevel];
-          ctx.lineWidth = 2;
+          ctx.lineWidth = 3;
           ctx.stroke();
+          ctx.shadowBlur = 0; // Reset shadow
         }
       });
 
