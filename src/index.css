@@ -8,35 +8,55 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* AlertX Design System - Mission Control Theme */
+    --background: 220 25% 8%;
+    --foreground: 210 40% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 20% 10%;
+    --card-foreground: 210 40% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 20% 12%;
+    --popover-foreground: 210 40% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 210 100% 45%;
+    --primary-foreground: 220 25% 8%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 210 40% 85%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 15% 15%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 80% 35%;
+    --accent-foreground: 210 40% 95%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Risk Level Colors */
+    --safe: 142 76% 36%;
+    --safe-foreground: 355 25% 97%;
+    
+    --warning: 43 96% 56%;
+    --warning-foreground: 220 25% 8%;
+    
+    --danger: 0 84% 60%;
+    --danger-foreground: 355 25% 97%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 355 25% 97%;
 
-    --radius: 0.5rem;
+    --border: 220 15% 20%;
+    --input: 220 15% 15%;
+    --ring: 210 100% 45%;
+
+    /* Enhanced Design Tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(210 100% 45%), hsl(210 80% 35%));
+    --gradient-alert: linear-gradient(135deg, hsl(0 84% 60%), hsl(0 70% 50%));
+    --gradient-safe: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 60% 30%));
+    
+    --shadow-glow: 0 0 20px hsl(210 100% 45% / 0.3);
+    --shadow-alert: 0 0 20px hsl(0 84% 60% / 0.4);
+    --shadow-safe: 0 0 20px hsl(142 76% 36% / 0.3);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
